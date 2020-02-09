@@ -185,6 +185,15 @@ publishConversation(conversationId: number, versionId: number): Observable<Serve
 return this.http.post<ServerState>(this.baseUrl + `/${conversationId}/version/${versionId}/production`, {});
 }
 
+createConversationVersion(conversationId: number, conversation: ConvFlowPack, voice: string = ''): Observable<ConversationVersion> {
+// this.setLatestVersion(new ConversationVersion({representationModel : conversation, voiceId: voice}));
+return this.http.post<ConversationVersion>(this.baseUrl + `/${conversationId}/version/create`,
+new ConversationVersion({representationModel : conversation, voiceId: voice}))
+.pipe(map(response => {
+this.setLatestVersion(response);
+return response;
+}));
+}
 /LICENSE.txt /ReleaseNotes.html /bin /cmd /dev /etc /git-bash.exe /git-cmd.exe /mingw64 /proc /tmp /unins000.dat /unins000.exe /unins000.msg /usr
 Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json RELATED SERVICES
 e2e/ shell/ src/
@@ -195,6 +204,7 @@ Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.j
 e2e/ shell/ src/
 getAvailableLanguage(appType: string): Observable<Language[]> {
 return this.http.post<Language[]>(this.baseUrl + '/language/available', {applicationType: appType});
+// return this.http.post<Language[]>(this.baseUrl + '/language/available', {applicationType: appType});
 }
 
 /LICENSE.txt /ReleaseNotes.html /bin /cmd /dev /etc /git-bash.exe /git-cmd.exe /mingw64 /proc /tmp /unins000.dat /unins000.exe /unins000.msg /usr
@@ -238,9 +248,20 @@ updateSettings(conversationId: number, versionId: number, data: any): Observable
 return this.http.post<any>(this.baseUrl + `/${conversationId}/version/${versionId}/advancedsettings`, data);
 }
 
+getVoicesByLanguageCode(appType: string, code: string): Observable<Voice[]> {
+return this.http.post<Voice[]>(this.baseUrl + '/voice/available', {applicationType: appType, languageCode: code});
+}
+
 /LICENSE.txt /ReleaseNotes.html /bin /cmd /dev /etc /git-bash.exe /git-cmd.exe /mingw64 /proc /tmp /unins000.dat /unins000.exe /unins000.msg /usr
-Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json Perform setting update on current version & conversation if setting recorded
+Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json Get an audio voice sample. `data` contains languageCode, VoiceId and sentence to be read.
+Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json @param data any
 e2e/ shell/ src/
+getVoiceSample(data: any): Observable<string> {
+return this.http.post<UrlResponse>(environment.apiUrl + '/sampleaudio', data)
+.pipe(map( response => {
+return response.url;
+}));
+}
 recordCurrentSettings(): void {
 if (!this.hasSettingsUpdate) {
 return;
