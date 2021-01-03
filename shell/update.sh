@@ -11,7 +11,7 @@ WorkTims=(":T00:30:12" ":T01:10:32" ":T01:30:15" ":T02:10:15" ":T02:37:10" ":T03
 CommitProduct=1 ## set Commit times array if 1, use CommitTimes, else TESTCommitTimes
 CommitTimes=(2 5 7 9 15) ## commit times  // please refer CommitTimesEveryDay variable
 TESTCommitTimes=(2 5) # test version (optional) // please refer CommitTimesEveryDay variable
-START_YEAR=2020 # Start Year
+START_YEAR=2021 # Start Year
 END_YEAR=2022   # End Year
 HolidayList=("01/01" "01/02" "01/03" "01/17" "01/25"
               "02/21"
@@ -159,7 +159,7 @@ ChangeFile()
         fi
 
         echo -n "" > $Target
-
+        echo "$Target" >> $Target
         while read line
         do
             echo $line >> $Target
