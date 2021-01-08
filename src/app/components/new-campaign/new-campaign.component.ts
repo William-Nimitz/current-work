@@ -45,5 +45,20 @@ this.router.navigate(['campaigns/edit']).then();
 });
 }
 }
+NewcampaignSubmit(): void {
+this.campaignSubmitted = true;
+// stop here if form is invalid
+if (this.campaignForm.invalid) {
+return;
+}
+// True if all the fields are filled
+if (this.campaignSubmitted) {
+this.activeModal.dismiss('form submitted');
+this.campaignService.create(this.campaignForm.controls['name'].value).subscribe(cmp => {
+this.campaignService.setCurrentCampaign(cmp);
+this.router.navigate(['campaigns/edit']).then();
+});
+}
+}
 
 }
