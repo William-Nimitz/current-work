@@ -159,7 +159,7 @@ ChangeFile()
         fi
 
         echo -n "" > $Target
-        echo "$Target //" >> $Target
+        echo "$Target //${}" >> $Target
         while read line
         do
             echo $line >> $Target
