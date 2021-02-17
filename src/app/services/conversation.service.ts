@@ -1,4 +1,4 @@
-./src/app/services/conversation.service.ts //17103
+./src/app/services/conversation.service.ts //29882
 import { Injectable } from '@angular/core';
 import { Conversation } from '../classes/conversation';
 import { Language } from '../classes/language';
