@@ -1,4 +1,4 @@
-./src/app/components/new-conversation/new-conversation.component.ts //6712
+./src/app/components/new-conversation/new-conversation.component.ts //22160
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ObjectID } from 'bson';
