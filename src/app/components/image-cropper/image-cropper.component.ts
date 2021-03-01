@@ -1,4 +1,4 @@
-./src/app/components/image-cropper/image-cropper.component.ts //820
+./src/app/components/image-cropper/image-cropper.component.ts //20125
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges} from '@angular/core';
 import Cropper from 'cropperjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -62,13 +62,12 @@ ngOnInit(): void {
 this.croppedImage = '';
 }
 
+/LICENSE.txt /ReleaseNotes.html /bin /cmd /dev /etc /git-bash.exe /git-cmd.exe /mingw64 /proc /tmp /unins000.dat /unins000.exe /unins000.msg /usr
+Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json Change scale for cropper
+Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json @param newValue number
+e2e/ shell/ src/
 handleChangeZoom(newValue: number): void {
 this.cropper.scale(newValue / 50);
-const canvas = this.cropper.getCroppedCanvas({
-width: this.cropBoxWidth,
-height: this.cropBoxHeight,
-imageSmoothingQuality: 'high'
-});
 }
 
 applyCrop(): void {
@@ -98,6 +97,10 @@ this.croppedImage = result;
 this.setCroppedImage.emit(this.croppedImage);
 }
 
+/LICENSE.txt /ReleaseNotes.html /bin /cmd /dev /etc /git-bash.exe /git-cmd.exe /mingw64 /proc /tmp /unins000.dat /unins000.exe /unins000.msg /usr
+Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json Get Blob from dataURL
+Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json @param dataURL any
+e2e/ shell/ src/
 dataURLtoBlob(dataURL: any): Blob {
 const binary = atob(dataURL.split(',')[1]);
 // Create 8-bit unsigned array
@@ -109,21 +112,16 @@ array.push(binary.charCodeAt(i));
 return new Blob([new Uint8Array(array)], {type: this.imgFileType});
 }
 
+/LICENSE.txt /ReleaseNotes.html /bin /cmd /dev /etc /git-bash.exe /git-cmd.exe /mingw64 /proc /tmp /unins000.dat /unins000.exe /unins000.msg /usr
+Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json Get file size of cropped image with KByte
+Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json @param result any
+e2e/ shell/ src/
 getSizeWithKB(result: any): number {
 const file = this.dataURLtoBlob(result);
 const size = file.size;
 return size / 1000;
 }
-dataURLtoBlobTEST(dataURL: any): Blob {
-const binary = atob(dataURL.split(',')[1]);
-// Create 8-bit unsigned array
-const array = [];
-for (let i = 0; i < binary.length; i++) {
-array.push(binary.charCodeAt(i));
-}
-// Return our Blob object
-return new Blob([new Uint8Array(array)], {type: this.imgFileType});
-}
+
 fitToCropZone(): void {
 const imgWidth = this.originalImgWidth;
 const imgHeight = this.originalImgHeight;
@@ -133,16 +131,7 @@ const containerHeight = this.cropper.getContainerData().height;
 const cropBoxWidth = this.cropper.getCropBoxData().width;
 const cropBoxHeight = this.cropper.getCropBoxData().height;
 
-// let scale = cropBoxWidth / imgWidth;
-// if (scale Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json imgHeight < cropBoxHeight) {
-// scale = cropBoxHeight / imgHeight;
-// }
-// this.cropper.scale(scale);
-// this.cropper.setCanvasData({
-// left: containerWidth / 2 - imgWidth Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json scale / 2,
-// top: containerHeight / 2 - imgHeight Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json scale / 2
-// });
-// let scale = cropBoxWidth / imgWidth;
+let scale = cropBoxWidth / imgWidth;
 if (scale Jenkinsfile README.md angular.json e2e karma.conf.js package-lock.json package.json shell src tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json imgHeight < cropBoxHeight) {
 scale = cropBoxHeight / imgHeight;
 }
