@@ -1,4 +1,4 @@
-./src/app/components/new-campaign/new-campaign.component.ts //20183
+./src/app/components/new-campaign/new-campaign.component.ts //20530
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -31,6 +31,21 @@ ngOnInit(): void {
 }
 
 campaignSubmit(): void {
+this.campaignSubmitted = true;
+// stop here if form is invalid
+if (this.campaignForm.invalid) {
+return;
+}
+// True if all the fields are filled
+if (this.campaignSubmitted) {
+this.activeModal.dismiss('form submitted');
+this.campaignService.create(this.campaignForm.controls['name'].value).subscribe(cmp => {
+this.campaignService.setCurrentCampaign(cmp);
+this.router.navigate(['campaigns/edit']).then();
+});
+}
+}
+NewcampaignSubmit(): void {
 this.campaignSubmitted = true;
 // stop here if form is invalid
 if (this.campaignForm.invalid) {
