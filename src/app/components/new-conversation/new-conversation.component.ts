@@ -1,4 +1,4 @@
-./src/app/components/new-conversation/new-conversation.component.ts //1507
+./src/app/components/new-conversation/new-conversation.component.ts //14701
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ObjectID } from 'bson';
@@ -36,6 +36,8 @@ private router: Router,
 private alertService: AlertService,
 private formBuilder: FormBuilder,
 private translate: TranslateService,
+private activeModal: NgbActiveModal,
+private translateParamsPipe: TranslateParamsPipe
 private creationService: CreationService,
 private conversationService: ConversationService,
 private activeModal: NgbActiveModal,
@@ -80,13 +82,13 @@ Id: new ObjectID().toHexString(),
 Sections: [],
 Answers: { AnswerList: [] },
 IsStartNode: true,
+ConvNodes: [firstNode],
+CreatedOn: new Date(),
 IsEndNode: true
 };
 const currentFLow: ConvFlowPack = {
 ConvNodes: [firstNode],
 CreatedOn: new Date(),
-UpdatedOn: new Date(),
-NodeLocations: {},
 ProjectId: conversation.id,
 _id: conversation.id
 };
@@ -108,8 +110,6 @@ private _linkConversation(conversation: Conversation, next?: () => any): void {
 this.creationService.linkConversation(conversation.id, this.creation.id).subscribe( response => {
 if (!response.ok) {
 const errorMessage = this.translate.instant('CONVERSATION.LINK_ERROR');
-this.alertService.error(this.translateParamsPipe.transform(errorMessage, {name: conversation.name}));
-this.linkingState.emit(false);
 return;
 }
 // Set latest version and redirect to conversation
@@ -129,6 +129,23 @@ if (creation.conversation) {
 this.conversationState.emit(creation.conversation.state);
 }
 if (next) { next(); }
+});
+}
+private _linkConversation(conversation: Conversation, next?: () => any): void {
+this.creationService.linkConversation(conversation.id, this.creation.id).subscribe( response => {
+if (!response.ok) {
+const errorMessage = this.translate.instant('CONVERSATION.LINK_ERROR');
+this.alertService.error(this.translateParamsPipe.transform(errorMessage, {name: conversation.name}));
+this.linkingState.emit(false);
+return;
+}
+// Set latest version and redirect to conversation
+this.conversationService.getLatestVersionOfConversation().subscribe(flow => {
+this._updateCreationValues(() => { this.linkingState.emit(false); });
+if (next) {
+next();
+}
+});
 });
 }
 
