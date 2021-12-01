@@ -1,9 +1,9 @@
 #!/bin/sh
 ## custom settings 
 MAINDIRECTORY=shell ## shell file directory
-FROMMONTH=2 ## optional  if > 1, Must START_YEAR == END_YEAR
+FROMMONTH=12 ## optional  if > 1, Must START_YEAR == END_YEAR
 CurrentLastMonth=12 ## set last month for current Year
-LASTMONTHFROMDATE=17
+LASTMONTHFROMDATE=1
 LASTMONTHENDDATE=31
 WorkTims=(":T00:30:12" ":T01:10:32" ":T01:30:15" ":T02:10:15" ":T02:37:10" ":T03:12:15" ":T03:45:17" ":T04:00:21"
            ":T04:29:17" ":T05:17:05" ":T05:37:02" ":T06:35:10" ":T07:00:12" ":T08:05:15" ":T08:45:12" ":T09:07:20"
