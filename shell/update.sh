@@ -1,18 +1,18 @@
 #!/bin/sh
 ## custom settings 
 MAINDIRECTORY=shell ## shell file directory
-FROMMONTH=12 ## optional  if > 1, Must START_YEAR == END_YEAR
-CurrentLastMonth=12 ## set last month for current Year
+FROMMONTH=1 ## optional  if > 1, Must START_YEAR == END_YEAR
+CurrentLastMonth=4 ## set last month for current Year
 LASTMONTHFROMDATE=1
-LASTMONTHENDDATE=31
+LASTMONTHENDDATE=26
 WorkTims=(":T00:30:12" ":T01:10:32" ":T01:30:15" ":T02:10:15" ":T02:37:10" ":T03:12:15" ":T03:45:17" ":T04:00:21"
            ":T04:29:17" ":T05:17:05" ":T05:37:02" ":T06:35:10" ":T07:00:12" ":T08:05:15" ":T08:45:12" ":T09:07:20"
           ":T15:12:19" ":T15:55:21" ":T17:30:20" ":T18:30:17" ":T19:30:50" ":T20:30:21" ":T23:30:19" ":T23:50:19") ##commit time list
 CommitProduct=1 ## set Commit times array if 1, use CommitTimes, else TESTCommitTimes
 CommitTimes=(2 5 7 9 15) ## commit times  // please refer CommitTimesEveryDay variable
 TESTCommitTimes=(2 5) # test version (optional) // please refer CommitTimesEveryDay variable
-START_YEAR=2021 # Start Year
-END_YEAR=2021   # End Year
+START_YEAR=2022 # Start Year
+END_YEAR=2022   # End Year
 HolidayList=("01/01" "01/02" "01/03" "01/17" "01/25"
               "02/21"
               "03/08"
