@@ -1,4 +1,4 @@
-./src/scss/components/_campaign.scss //29523
+./src/scss/components/_campaign.scss //12259
 /LICENSE.txt /ReleaseNotes.html /bin /cmd /dev /etc /git-bash.exe /git-cmd.exe /mingw64 /proc /tmp /unins000.dat /unins000.exe /unins000.msg /usr
 campaign list
 e2e/ shell/ src/
@@ -1713,26 +1713,21 @@ padding: 10px;
 margin-bottom: 10px;
 display: flex;
 align-items: center;
-.audio-icon-section {
-width: 30px;
-height: 30px;
-border-radius: 50%;
-display: inline-flex;
-justify-content: center;
-align-items: center;
-.icon-fake_player {
-font-size: 24px;
-}
-& + .popover {
-left: 30px !important;
-}
-}
 }
 & + .popover {
 .arrow {
 margin-top: 170px;
 }
 }
+}
+.format-box {
+border-radius: 3px;
+background-color: $table-bg-color;
+box-shadow: 5px 5px 15px $color__light-grey;
+.slide-item{
+width: 300px !important;
+min-width: 300px;
+height: 562px;
 }
 .message-content-section + .popover {
 top: -110px !important;
@@ -1752,6 +1747,20 @@ i{
 font-size: 25px;
 &:hover{
 color: blue;
+}
+}
+.audio-icon-section {
+width: 30px;
+height: 30px;
+border-radius: 50%;
+display: inline-flex;
+justify-content: center;
+align-items: center;
+.icon-fake_player {
+font-size: 24px;
+}
+& + .popover {
+left: 30px !important;
 }
 }
 .circle-item{
@@ -1775,6 +1784,15 @@ margin: 25px auto auto auto;
 }
 }
 }
+}
+.format-box {
+border-radius: 3px;
+background-color: $table-bg-color;
+box-shadow: 5px 5px 15px $color__light-grey;
+.slide-item{
+width: 300px !important;
+min-width: 300px;
+height: 562px;
 }
 }
 .formats-300x600-intro-video {
