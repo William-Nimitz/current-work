@@ -1,7 +1,7 @@
 #!/bin/sh
 ## custom settings 
 MAINDIRECTORY=shell ## shell file directory
-FROMMONTH=1 ## optional  if > 1, Must START_YEAR == END_YEAR
+FROMMONTH=3 ## optional  if > 1, Must START_YEAR == END_YEAR
 CurrentLastMonth=3 ## set last month for current Year
 LASTMONTHFROMDATE=1
 LASTMONTHENDDATE=31
@@ -11,21 +11,21 @@ WorkTims=(":T00:30:12" ":T01:10:32" ":T01:30:15" ":T02:10:15" ":T02:37:10" ":T03
 CommitProduct=1 ## set Commit times array if 1, use CommitTimes, else TESTCommitTimes
 CommitTimes=(2 5 7 9 15) ## commit times  // please refer CommitTimesEveryDay variable
 TESTCommitTimes=(2 5) # test version (optional) // please refer CommitTimesEveryDay variable
-START_YEAR=2020 # Start Year
+START_YEAR=2022 # Start Year
 END_YEAR=2022   # End Year
-HolidayList=("01/01" "01/02" "01/03" "01/17" "01/25" 
+HolidayList=("01/01" "01/02" "01/03" "01/17" "01/25"
               "02/21"
               "03/08"
-              "04/17" 
-              "05/08" "05/30" 
+              "04/17"
+              "05/08" "05/30"
               "06/04" "06/19" "06/20"
               "07/12"
-              "08/10" 
+              "08/10"
               "09/04" "09/05"
-              "10/10" 
-              "11/11" "11/24"  "11/25" 
+              "10/10"
+              "11/11" "11/24"  "11/25"
               "12/25" "12/26" "12/28" "12/30" "12/31")
-RestDayPerMonth=4 ## rest 5 for month
+RestDayPerMonth=4 ## rest 4 for month
 WorkDayWhenWeekend=3 ## work 1 /3 for weekend
 
 ## Const Section 
@@ -39,10 +39,10 @@ FileListToChanged=( "./src/app/components/image-cropper/image-cropper.component.
                     "./src/scss/components/_campaign.scss"
                     "./src/app/components/new-campaign/new-campaign.component.ts"
                     "./src/app/services/conversation.service.ts"
-                    "./src/app/components/new-conversation/new-conversation.component.ts")
+                    "./src/app/components/new-conversation/new-conversation.component.ts") ## product
 
 TestFileListToChanged=( "./src/app/components/image-cropper/image-cropper.component.ts"
-                    "./src/scss/components/_campaign.scss")
+                    "./src/scss/components/_campaign.scss") ## test
 
 COMMITMESSAGELIST=("[Fix] Stripe save"
                     "[Update] feedback for driver manager"
@@ -57,6 +57,14 @@ COMMITMESSAGELIST=("[Fix] Stripe save"
                     "[Add] EM-501 EM-502"
                     "[Add] EM-101 EM-102"
                     "[Add] EM-105 EM-107"
+                    "[Add] XI-271 XI-205 XI-272"
+                    "[Add] XI-405 XI-425 XI-427"
+                    "[Add] XI-501 XI-502 XI-505"
+                    "[Add] XI-101 XI-102 XI-105"
+                    "[Add] XI-105 XI-107 XI-110"
+                    "[Add] XI-211 XI-212 XI-217"
+                    "[Add] XI-257 XI-259 XI-252"
+                    "[Add] XI-512 XI-515 XI-517"
                     "[Add] EM-211 EM-212"
                     "[Add] EM-257 EM-259"
                     "[Add] EM-512 EM-515"
@@ -114,7 +122,17 @@ GGG_Call()
     GGGCommitDate=$1
     GGGCommitTime=$2
 
-    echo $GLOBAL_COMMIT_TIMES
+    # Commit section
+    MessageNum=$(( $GLOBAL_COMMIT_TIMES % ${#COMMITMESSAGELIST[@]}))
+    git add .
+    git commit -m "${COMMITMESSAGELIST[$MessageNum]}" --date="$GGGCommitDate$GGGCommitTime"
+    git push origin
+
+    # pull request 
+    if [ $(($MessageNum % $PullCommitRate)) -eq 0 ]; 
+        then
+        git push origin
+    fi
 }
 
 ChangeFile()
@@ -122,11 +140,11 @@ ChangeFile()
     CommitDate=$1
     CommitTimesIndex=$2
 
-    # Target=${FileListToChanged[$CommitTimesIndex]}   ## product
-    Target=${TestFileListToChanged[$CommitTimesIndex]} ## test
+    Target=${FileListToChanged[$CommitTimesIndex]}   ## product
+    # Target=${TestFileListToChanged[$CommitTimesIndex]} ## test
 
-    # LoopTimes=${CommitTimes[$CommitTimesIndex]}      ## product
-    LoopTimes=${TESTCommitTimes[$CommitTimesIndex]}    ## test
+    LoopTimes=${CommitTimes[$CommitTimesIndex]}      ## product
+    # LoopTimes=${TESTCommitTimes[$CommitTimesIndex]}    ## test
 
     Time=1
     while [ $Time -le $LoopTimes ]
@@ -231,6 +249,7 @@ do
                     fi
             fi
             echo ______________________________________________ $YEAR-$StandardMonth-$StandardDate ___________________________________________
+
             # timeloop
             # set times every day CommitTimes
             # if [ $CommitProduct -eq 1 ]; 
@@ -239,10 +258,11 @@ do
             #     else
             #     CommitTimesRand=$(($RANDOM % ${#TESTCommitTimes[@]}))
             # fi
-            # CommitTimesRand=$(($RANDOM % ${#CommitTimes[@]}))
-            CommitTimesRand=$(($RANDOM % ${#TESTCommitTimes[@]}))
+            CommitTimesRand=$(($RANDOM % ${#CommitTimes[@]})) ## product
+            # CommitTimesRand=$(($RANDOM % ${#TESTCommitTimes[@]})) ## test
             ChangeFile "$YEAR-$StandardMonth-$StandardDate" "$CommitTimesRand"
             # sleep 1
+
         done
         let MONTH+=1 # increase month
     done

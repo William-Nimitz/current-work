@@ -1,10 +1,10 @@
 #!/bin/sh
 ## custom settings 
 MAINDIRECTORY=shell ## shell file directory
-FROMMONTH=3 ## optional  if > 1, Must START_YEAR == END_YEAR
-CurrentLastMonth=3 ## set last month for current Year
+FROMMONTH=1 ## optional  if > 1, Must START_YEAR == END_YEAR
+CurrentLastMonth=2 ## set last month for current Year
 LASTMONTHFROMDATE=1
-LASTMONTHENDDATE=31
+LASTMONTHENDDATE=28
 WorkTims=(":T00:30:12" ":T01:10:32" ":T01:30:15" ":T02:10:15" ":T02:37:10" ":T03:12:15" ":T03:45:17" ":T04:00:21"
            ":T04:29:17" ":T05:17:05" ":T05:37:02" ":T06:35:10" ":T07:00:12" ":T08:05:15" ":T08:45:12" ":T09:07:20"
           ":T15:12:19" ":T15:55:21" ":T17:30:20" ":T18:30:17" ":T19:30:50" ":T20:30:21" ":T23:30:19" ":T23:50:19") ##commit time list
@@ -57,6 +57,14 @@ COMMITMESSAGELIST=("[Fix] Stripe save"
                     "[Add] EM-501 EM-502"
                     "[Add] EM-101 EM-102"
                     "[Add] EM-105 EM-107"
+                    "[Add] XI-271 XI-205 XI-272"
+                    "[Add] XI-405 XI-425 XI-427"
+                    "[Add] XI-501 XI-502 XI-505"
+                    "[Add] XI-101 XI-102 XI-105"
+                    "[Add] XI-105 XI-107 XI-110"
+                    "[Add] XI-211 XI-212 XI-217"
+                    "[Add] XI-257 XI-259 XI-252"
+                    "[Add] XI-512 XI-515 XI-517"
                     "[Add] EM-211 EM-212"
                     "[Add] EM-257 EM-259"
                     "[Add] EM-512 EM-515"
@@ -114,7 +122,17 @@ GGG_Call()
     GGGCommitDate=$1
     GGGCommitTime=$2
 
-    echo $GLOBAL_COMMIT_TIMES $GGGCommitDate $GGGCommitTime
+    # Commit section
+    MessageNum=$(( $GLOBAL_COMMIT_TIMES % ${#COMMITMESSAGELIST[@]}))
+    git add .
+    git commit -m "${COMMITMESSAGELIST[$MessageNum]}" --date="$GGGCommitDate$GGGCommitTime"
+    git push origin
+
+    # pull request 
+    if [ $(($MessageNum % $PullCommitRate)) -eq 0 ]; 
+        then
+        git push origin
+    fi
 }
 
 ChangeFile()
