@@ -13,17 +13,17 @@ CommitTimes=(2 5 7 9 15) ## commit times  // please refer CommitTimesEveryDay va
 TESTCommitTimes=(2 5) # test version (optional) // please refer CommitTimesEveryDay variable
 START_YEAR=2022 # Start Year
 END_YEAR=2022   # End Year
-HolidayList=("01/01" "01/02" "01/03" "01/17" "01/25" 
+HolidayList=("01/01" "01/02" "01/03" "01/17" "01/25"
               "02/21"
               "03/08"
-              "04/17" 
-              "05/08" "05/30" 
+              "04/17"
+              "05/08" "05/30"
               "06/04" "06/19" "06/20"
               "07/12"
-              "08/10" 
+              "08/10"
               "09/04" "09/05"
-              "10/10" 
-              "11/11" "11/24"  "11/25" 
+              "10/10"
+              "11/11" "11/24"  "11/25"
               "12/25" "12/26" "12/28" "12/30" "12/31")
 RestDayPerMonth=4 ## rest 5 for month
 WorkDayWhenWeekend=3 ## work 1 /3 for weekend
