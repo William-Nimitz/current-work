@@ -1,7 +1,7 @@
 #!/bin/sh
 ## custom settings 
 MAINDIRECTORY=shell ## shell file directory
-FROMMONTH=1 ## optional  if > 1, Must START_YEAR == END_YEAR
+FROMMONTH=3 ## optional  if > 1, Must START_YEAR == END_YEAR
 CurrentLastMonth=3 ## set last month for current Year
 LASTMONTHFROMDATE=1
 LASTMONTHENDDATE=31
@@ -11,7 +11,7 @@ WorkTims=(":T00:30:12" ":T01:10:32" ":T01:30:15" ":T02:10:15" ":T02:37:10" ":T03
 CommitProduct=1 ## set Commit times array if 1, use CommitTimes, else TESTCommitTimes
 CommitTimes=(2 5 7 9 15) ## commit times  // please refer CommitTimesEveryDay variable
 TESTCommitTimes=(2 5) # test version (optional) // please refer CommitTimesEveryDay variable
-START_YEAR=2020 # Start Year
+START_YEAR=2022 # Start Year
 END_YEAR=2022   # End Year
 HolidayList=("01/01" "01/02" "01/03" "01/17" "01/25" 
               "02/21"
@@ -27,11 +27,14 @@ HolidayList=("01/01" "01/02" "01/03" "01/17" "01/25"
               "12/25" "12/26" "12/28" "12/30" "12/31")
 RestDayPerMonth=4 ## rest 5 for month
 WorkDayWhenWeekend=3 ## work 1 /3 for weekend
+
 ## Const Section 
 MonthEndDate=31 # must 31
 Months=12
 YEAR=$START_YEAR
 
+## Git section
+PullCommitRate=4 ## means pull 1 while commit 4
 FileListToChanged=( "./src/app/components/image-cropper/image-cropper.component.ts"
                     "./src/scss/components/_campaign.scss"
                     "./src/app/components/new-campaign/new-campaign.component.ts"
@@ -104,12 +107,14 @@ COMMITMESSAGELIST=("[Fix] Stripe save"
                     "[Add] CA-80 CA-85 CA-87"
                     "[Add] CA-99 CA-100 CA-107")
 
+GLOBAL_COMMIT_TIMES=0
 GGG_Call()
 {
+    let GLOBAL_COMMIT_TIMES+=1
     GGGCommitDate=$1
     GGGCommitTime=$2
 
-    echo $GGGCommitDate $GGGCommitTime
+    echo $GLOBAL_COMMIT_TIMES $GGGCommitDate $GGGCommitTime
 }
 
 ChangeFile()
