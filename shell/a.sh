@@ -106,7 +106,10 @@ COMMITMESSAGELIST=("[Fix] Stripe save"
 
 GGG_Call()
 {
+    GGGCommitDate=$1
+    GGGCommitTime=$2
 
+    echo $GGGCommitDate $GGGCommitTime
 }
 
 ChangeFile()
@@ -141,8 +144,8 @@ ChangeFile()
         
         CommitTimeRand=${WorkTims[ $RANDOM % ${#WorkTims[@]} ]}
         #call git commit commands
-        GGG_Call "$CommitDate" "$CommitTime"
-        
+        GGG_Call "$CommitDate" "$CommitTimeRand"
+
         let Time+=1
     done
 }
