@@ -41,10 +41,84 @@ FileListToChanged=( "./src/app/components/image-cropper/image-cropper.component.
 TestFileListToChanged=( "./src/app/components/image-cropper/image-cropper.component.ts"
                     "./src/scss/components/_campaign.scss")
 
+COMMITMESSAGELIST=("[Fix] Stripe save"
+                    "[Update] feedback for driver manager"
+                    "[Update] category reset"
+                    "[Fix] validation error"
+                    "[Update] get drivers for driver manager"
+                    "[Update] category reset"
+                    "[Add] EM-112 EM-115"
+                    "[Add] EM-117 EM-119"
+                    "[Add] EM-201 EM-205"
+                    "[Add] EM-405 EM-425"
+                    "[Add] EM-501 EM-502"
+                    "[Add] EM-101 EM-102"
+                    "[Add] EM-105 EM-107"
+                    "[Add] EM-211 EM-212"
+                    "[Add] EM-257 EM-259"
+                    "[Add] EM-512 EM-515"
+                    "[Add] EM-50 EM-51"
+                    "[Fix] validation error"
+                    "[Update] category reset"
+                    "[Feat] Business Wallet Setting"
+                    "[Add] EM-71 EM-72"
+                    "[Add] EM-80 EM-85"
+                    "[Add] EM-99 EM-100"
+                    "[Add] DA-112 DA-115"
+                    "[Add] DA-117 DA-119"
+                    "[Add] DA-271 DA-205"
+                    "[Add] DA-405 DA-425"
+                    "[Add] DA-501 DA-502"
+                    "[Add] DA-101 DA-102"
+                    "[Add] DA-105 DA-107"
+                    "[Add] DA-211 DA-212"
+                    "[Add] DA-257 DA-259"
+                    "[Add] DA-512 DA-515"
+                    "[Add] DA-50 DA-51"
+                    "[Add] DA-71 DA-72"
+                    "[Add] DA-80 DA-85"
+                    "[Add] DA-99 DA-100"
+                    "[Fix] payment error"
+                    "[Update] cart reset"
+                    "[Feat] Business Wallet Setting"
+                    "[Add] CA-105 CA-107 CA-102"
+                    "[Add] CA-211 CA-212 CA-215"
+                    "[Add] CA-257 CA-259 CA-260"
+                    "[Add] CA-512 CA-515 CA-517"
+                    "[Add] CA-50 CA-51 CA-52"
+                    "[Add] CA-71 CA-72 CA-75"
+                    "[Add] CA-80 CA-85 CA-87"
+                    "[Add] CA-99 CA-100 CA-101"
+                    "[Add] CA-112 CA-115 CA-119"
+                    "[Add] CA-117 CA-120 CA-121"
+                    "[Add] CA-271 CA-205 CA-272"
+                    "[Add] CA-405 CA-425 CA-427"
+                    "[Add] CA-501 CA-502 CA-505"
+                    "[Add] CA-101 CA-102 CA-105"
+                    "[Add] CA-105 CA-107 CA-110"
+                    "[Add] CA-211 CA-212 CA-217"
+                    "[Add] CA-257 CA-259 CA-252"
+                    "[Add] CA-512 CA-515 CA-517"
+                    "[Add] CA-50 CA-51"
+                    "[Add] CA-71 CA-72"
+                    "[Add] CA-80 CA-85 CA-87"
+                    "[Add] CA-99 CA-100 CA-107")
+
+GGG_Call()
+{
+
+}
+
 ChangeFile()
 {
     CommitDate=$1
-    LoopTimes=$2
+    CommitTimesIndex=$2
+
+    # Target=${FileListToChanged[$CommitTimesIndex]}   ## product
+    Target=${TestFileListToChanged[$CommitTimesIndex]} ## test
+
+    # LoopTimes=${CommitTimes[$CommitTimesIndex]}      ## product
+    LoopTimes=${TESTCommitTimes[$CommitTimesIndex]}    ## test
 
     Time=1
     while [ $Time -le $LoopTimes ]
@@ -58,17 +132,17 @@ ChangeFile()
             Destination="./$MAINDIRECTORY/temp/change_$LoopTimes-original.bak"
         fi
 
-        echo $Destination
-        # echo -n "" > $Target
-        # while read line
-        #     do
-        #         echo $line >> $Target
-        #     done < $Destination
-        
-        # CommitTime=${WorkTims[ $RANDOM % ${#WorkTims[@]} ]}
-        # #call git commit commands
-        # ./$MAINDIRECTORY/git-commands.sh "${CommitMessage[${Time} - 1]}" "$CommitDate" "$CommitTime"
+        echo -n "" > $Target
 
+        while read line
+        do
+            echo $line >> $Target
+        done < $Destination
+        
+        CommitTimeRand=${WorkTims[ $RANDOM % ${#WorkTims[@]} ]}
+        #call git commit commands
+        GGG_Call "$CommitDate" "$CommitTime"
+        
         let Time+=1
     done
 }
@@ -151,16 +225,16 @@ do
             echo ______________________________________________ $YEAR-$StandardMonth-$StandardDate ___________________________________________
 
             # timeloop
-            # set times every day TESTCommitTimes
+            # set times every day CommitTimes
             # if [ $CommitProduct -eq 1 ]; 
             #     then
-            #     CommitTimesEveryDay=${CommitTimes[ $RANDOM % ${#CommitTimes[@]} ]}
+            #     CommitTimesRand=$(($RANDOM % ${#CommitTimes[@]}))
             #     else
-            #     CommitTimesEveryDay=${TESTCommitTimes[ $RANDOM % ${#TESTCommitTimes[@]} ]}
+            #     CommitTimesRand=$(($RANDOM % ${#TESTCommitTimes[@]}))
             # fi
-            # CommitTimesEveryDay=${CommitTimes[ $RANDOM % ${#CommitTimes[@]} ]}
-            CommitTimesEveryDay=${TESTCommitTimes[ $RANDOM % ${#TESTCommitTimes[@]} ]}
-            ChangeFile "$YEAR-$StandardMonth-$StandardDate" "$CommitTimesEveryDay"
+            # CommitTimesRand=$(($RANDOM % ${#CommitTimes[@]}))
+            CommitTimesRand=$(($RANDOM % ${#TESTCommitTimes[@]}))
+            ChangeFile "$YEAR-$StandardMonth-$StandardDate" "$CommitTimesRand"
             # sleep 1
 
         done
