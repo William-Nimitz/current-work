@@ -53,9 +53,9 @@ ChangeFile()
 
         if [ `expr $Time % 2` != 0 ]; 
             then
-            Destination="./$MAINDIRECTORY/temp/change_$CommitDate.bak"
+            Destination="./$MAINDIRECTORY/temp/change_$LoopTimes.bak"
             else
-            Destination="./$MAINDIRECTORY/temp/change_$CommitDate-original.bak"
+            Destination="./$MAINDIRECTORY/temp/change_$LoopTimes-original.bak"
         fi
 
         echo $Destination
