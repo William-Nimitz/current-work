@@ -1,0 +1,20 @@
+#footer {
+  position: fixed;
+  bottom: 0px;
+  right: 0;
+  width: 50%;
+  height: 60px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  .powered-by {
+    span {
+      color: $text-secondary-color;
+      @include fonts(0.625, $font__main);
+    }
+    img {
+      height: 40px;
+      margin: 0 10px 0 3px;
+    }
+  }
+}

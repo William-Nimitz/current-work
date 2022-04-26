@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <h1 class="page-title">{{ 'CAMPAIGNS' | translate }}</h1>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="d-flex justify-content-between align-items-center pb-3">
+          <p class="sub-title">{{ 'CAMPAIGNS_LIST' | translate }}</p>
+
+          <button class="btn-rounded-outline-secondary btn-with-icon" (click)="openModal()">
+            <i class="icon-add"></i>
+            {{ 'NEW_CAMPAIGN' | translate }}
+          </button>
+        </div>
+        <div class="campaign-list-section">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th class="cursor-pointer" (click)="sort('name')">{{ 'CAMPAIGN_NAME' | translate }}
+                  <i *ngIf="sortBy==='name' && orderBy === 'ASC'" class="icon-sort-az"></i>
+                  <i *ngIf="sortBy==='name' && orderBy === 'DESC'" class="icon-sort-za"></i>
+                </th>
+                <th class="cursor-pointer" (click)="sort('modificationTimestamp')">
+                  {{ 'CREATION.UPDATED' | translate }}
+                  <i *ngIf="sortBy==='modificationTimestamp' && orderBy === 'ASC'" class="icon-sort-list-1"></i>
+                  <i *ngIf="sortBy==='modificationTimestamp' && orderBy === 'DESC'" class="icon-sort-list-2"></i></th>
+                <th colspan="2">
+                  {{ 'CREATION.CREATIONS' | translate }}
+                  <div class="search-input">
+                    <i class="icon-search left"></i>
+                    <input type="text" placeholder="{{ 'CAMPAIGN_FILTER' | translate }}" [value]="filterObj"
+                           name="name" (keyup)="filter($event.target)">
+                    <i *ngIf="filterObj!==''" class="icon-cancel right" (click)="filter({value: ''})"></i>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let campaign of campaigns | campaignFilter: filterObj | orderBy: sortBy : orderBy">
+                <td><div>{{ campaign.name }}</div></td>
+                <td><div>{{ campaign.modificationTimestamp | date:'dd/MM/yy H:mm' }}</div>
+                  <small *ngIf="campaign.modificationUser">{{ campaign.modificationUser }}</small></td>
+                <td>
+                  <div class="wrapper-flex">
+                    <span *ngFor="let creation of campaign.creation"
+                          class="campaign-creation-name position-relative cursor-pointer"
+                          (click)="gotoCreation(campaign, creation)">
+                      <i class="{{creation.creationType | creationType : 'icon'}}"></i>
+                      {{ creation.name }}
+                    </span>
+                  </div>
+                </td>
+                <td class="center action">
+                  <div class="wrapper-action-btn">
+                    <app-edit-campaigns *ngIf="openActionListId === campaign.id" [campaign]="campaign"
+                                        (delete)="deleteCampaign($event)"
+                                        (duplicate)="duplicateCampaign($event)"></app-edit-campaigns>
+                    <button class="card-action-btn" (click)="openActionList(campaign.id)">
+                      <i class="icon-more"></i>
+                      {{ 'BUTTONS.ACTIONS' | translate }}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
