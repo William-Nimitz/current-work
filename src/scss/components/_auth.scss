@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.9;
+    opacity: 0.1;
 
     .form-title {
         @include fonts(1.375, $font__secondary, 500);
