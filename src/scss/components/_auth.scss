@@ -13,6 +13,7 @@
         @include fonts(1.375, $font__secondary, 500);
         color: $text-main-color;
         margin: 0px;
+        padding: 10px;
     }
 
     .tag-line {
